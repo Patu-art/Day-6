@@ -1,0 +1,32 @@
+/* Day 6 image layer — real venue/supplier reference imagery, not generic stock. */
+.supplier-card{isolation:isolate}
+.supplier-photo{position:absolute;inset:0;margin:0;z-index:-2;overflow:hidden}
+.supplier-photo img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.025);transition:transform 1s cubic-bezier(.2,.8,.2,1),filter .5s ease}
+.supplier-card:hover .supplier-photo img{transform:scale(1.075)}
+.supplier-photo:after{content:"";position:absolute;inset:0;pointer-events:none}
+.supplier-card.coffee .supplier-photo:after{background:linear-gradient(180deg,rgba(16,27,30,.12) 12%,rgba(22,34,37,.55) 46%,rgba(19,31,34,.94) 100%)}
+.supplier-card.bake .supplier-photo:after{background:linear-gradient(180deg,rgba(64,35,23,.08) 10%,rgba(93,59,41,.5) 45%,rgba(77,47,34,.94) 100%)}
+.supplier-card>.mono,.supplier-card h3,.supplier-card p,.supplier-mark{z-index:2;position:relative}
+.supplier-card>.mono{position:absolute}
+.supplier-card h3{text-shadow:0 1px 25px rgba(0,0,0,.16)}
+.supplier-card p{max-width:330px}
+.supplier-mark{position:absolute}
+
+.sun-stage{background:#58645f;isolation:isolate}
+.daylight-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:-3;transform:scale(1.03);transition:transform 1.4s cubic-bezier(.2,.8,.2,1),filter .5s ease}
+.sun-stage.in .daylight-photo{transform:scale(1)}
+.sun-stage:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(245,232,185,.06),rgba(38,46,43,.18) 48%,rgba(23,28,26,.72));pointer-events:none}
+.sun-stage .sun{z-index:1;opacity:.58;mix-blend-mode:screen}
+.sun-stage .horizon{z-index:1;opacity:.42}
+.sun-stage .sun-label,.sun-stage .day-counter{z-index:3;text-shadow:0 1px 16px rgba(0,0,0,.38)}
+.sun-stage .sun-label{color:#fff}
+
+.image-credit-note{font:500 8px/1.45 var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.64}
+
+@media(max-width:720px){
+  .supplier-photo img{transform:scale(1.01)}
+  .supplier-card:hover .supplier-photo img{transform:scale(1.035)}
+  .sun-stage{min-height:520px}
+}
+
+@media(prefers-reduced-motion:reduce){.supplier-photo img,.daylight-photo{transition:none!important;transform:none!important}}
