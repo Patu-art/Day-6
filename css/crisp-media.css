@@ -1,0 +1,32 @@
+/* Crisp-media patch: preserve source detail instead of scaling/raster-softening media. */
+.hero-media img,.visit-media img,.venue-shot img,.daylight-photo,.owner-photo img,.supplier-photo img,.motion-video video{image-rendering:auto;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+
+/* Do not enlarge raster photos with CSS transforms. */
+.supplier-photo img,.supplier-card:hover .supplier-photo img,.venue-shot img,.venue-shot:hover img,.daylight-photo,.sun-stage.in .daylight-photo{transform:none!important}
+
+/* The user-supplied 480px venue shots stay close to their useful display size on desktop. */
+.venue-notes{grid-template-columns:minmax(240px,420px) minmax(220px,.7fr) minmax(260px,440px);justify-content:center}
+.venue-shot-square{min-height:0;aspect-ratio:1/1}
+.venue-shot-portrait{min-height:0;aspect-ratio:3/4}
+
+/* Avoid stretching the small square staff photo into a very tall panel. */
+.owner-photo{min-height:0!important;aspect-ratio:1/1;align-self:center}
+.owner-photo img{object-position:center;filter:grayscale(1)}
+
+/* Keep video from being blown up across a huge desktop area. */
+.motion-break{grid-template-columns:minmax(280px,.9fr) minmax(300px,560px);justify-content:center}
+.motion-video{min-height:0;aspect-ratio:9/16;width:100%;max-width:560px;justify-self:center}
+
+@media(max-width:900px){
+  .venue-notes{grid-template-columns:1fr 1fr}
+  .venue-note-copy{grid-column:1/-1;order:-1}
+}
+
+@media(max-width:760px){
+  .venue-notes{grid-template-columns:1fr}
+  .venue-shot-square{aspect-ratio:1/1}
+  .venue-shot-portrait{aspect-ratio:4/5}
+  .owner-photo{aspect-ratio:1/1}
+  .motion-break{grid-template-columns:1fr}
+  .motion-video{max-width:430px;margin-inline:auto}
+}
