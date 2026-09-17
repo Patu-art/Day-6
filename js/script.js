@@ -2,6 +2,46 @@ const menu=document.querySelector('.menu');
 const nav=document.querySelector('#nav');
 const body=document.body;
 
+/* Load the media-quality correction last so older animation CSS cannot soften images. */
+const crispMediaCss=document.createElement('link');
+crispMediaCss.rel='stylesheet';
+crispMediaCss.href='css/crisp-media.css?v=3';
+document.head.appendChild(crispMediaCss);
+
+/*
+  The first user-supplied exterior is 480px wide. It is good for a phone/card,
+  but stretching it across a large desktop hero makes it look soft. Keep the
+  supplied asset on compact screens and use a genuine higher-resolution Wild
+  Alderman exterior for large display areas.
+*/
+const localExterior='assets/images/always-the-same-hero.jpg?v=3';
+const desktopExterior='https://d2joqs9jfh6k92.cloudfront.net/wp-content/uploads/2025/07/28162227/thewildalderman_1753520440_3685119002759551801_74750789206-e1753719767580.jpg';
+const localInterior='assets/images/daytime-interior.jpg?v=3';
+const desktopInterior='https://d2s8km3brsjp0y.cloudfront.net/eyJidWNrZXQiOiJ3aGF0cHViIiwia2V5IjoiTUFTXC9NQVMrNDE5My0xNzM5ODg4LTI0MDAtMTgwMC5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjgwMCwiaGVpZ2h0Ijo2MDAsImZpdCI6ImNvdmVyIn0sInJvdGF0ZSI6bnVsbH19';
+
+function applySharpMedia(){
+  const compact=innerWidth<=760;
+  document.querySelectorAll('.hero-media img,.visit-media img').forEach(img=>{
+    const next=compact?localExterior:desktopExterior;
+    if(img.src!==next) img.src=next;
+  });
+  const daylight=document.querySelector('.daylight-photo');
+  if(daylight){
+    const next=compact?localInterior:desktopInterior;
+    if(daylight.src!==next) daylight.src=next;
+  }
+  document.querySelectorAll('.venue-shot img,.owner-photo img').forEach(img=>{
+    const clean=img.getAttribute('src')?.split('?')[0];
+    if(clean?.startsWith('assets/')) img.src=`${clean}?v=3`;
+  });
+}
+applySharpMedia();
+let mediaResizeTimer;
+addEventListener('resize',()=>{
+  clearTimeout(mediaResizeTimer);
+  mediaResizeTimer=setTimeout(applySharpMedia,120);
+},{passive:true});
+
 function closeMenu(){
   nav?.classList.remove('open');
   menu?.setAttribute('aria-expanded','false');
@@ -88,19 +128,12 @@ function resetTouchMotion(){
 }
 
 function paintMotion(){
+  /* Raster photo parallax was also contributing to softness, so media stays still. */
+  parallaxMedia.forEach(img=>{img.style.transform='';});
   if(reduceMotion||compactMotion.matches){
-    resetTouchMotion();
+    if(sun) sun.style.transform='translateX(-50%)';
     return;
   }
-
-  parallaxMedia.forEach(img=>{
-    const parent=img.parentElement;
-    const rect=parent.getBoundingClientRect();
-    const center=rect.top+rect.height/2-innerHeight/2;
-    const amount=Number(parent.dataset.parallax||0.03);
-    const y=Math.max(-24,Math.min(24,-center*amount));
-    img.style.transform=`scale(1.055) translateY(${y}px)`;
-  });
 
   if(sun&&sunStage){
     const rect=sunStage.getBoundingClientRect();
