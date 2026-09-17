@@ -1,4 +1,4 @@
-/* Day 6 image layer — real venue/supplier reference imagery, not generic stock. */
+/* Day 6 image + motion layer */
 .supplier-card{isolation:isolate}
 .supplier-photo{position:absolute;inset:0;margin:0;z-index:-2;overflow:hidden}
 .supplier-photo img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.025);transition:transform 1s cubic-bezier(.2,.8,.2,1),filter .5s ease}
@@ -12,6 +12,19 @@
 .supplier-card p{max-width:330px}
 .supplier-mark{position:absolute}
 
+/* User-supplied venue images */
+.venue-notes{margin-top:56px;display:grid;grid-template-columns:.85fr .65fr 1.05fr;gap:12px;align-items:stretch}
+.venue-shot{margin:0;position:relative;overflow:hidden;background:var(--ink);min-height:430px}
+.venue-shot-square{min-height:430px}
+.venue-shot-portrait{min-height:520px}
+.venue-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.venue-shot:hover img{transform:scale(1.035)}
+.venue-shot:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(10,10,8,.78));pointer-events:none}
+.venue-shot figcaption{position:absolute;z-index:2;left:18px;right:18px;bottom:17px;color:#fff;display:flex;flex-direction:column;gap:4px}
+.venue-shot figcaption strong{font:600 13px/1.15 var(--sans);letter-spacing:-.02em}
+.venue-note-copy{background:var(--ink);color:var(--paper);padding:28px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.venue-note-copy p{font-size:14px;line-height:1.65;margin:28px 0 0;max-width:30rem}
+
 .sun-stage{background:#58645f;isolation:isolate}
 .daylight-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:-3;transform:scale(1.03);transition:transform 1.4s cubic-bezier(.2,.8,.2,1),filter .5s ease}
 .sun-stage.in .daylight-photo{transform:scale(1)}
@@ -21,12 +34,65 @@
 .sun-stage .sun-label,.sun-stage .day-counter{z-index:3;text-shadow:0 1px 16px rgba(0,0,0,.38)}
 .sun-stage .sun-label{color:#fff}
 
+/* Staff / people image */
+.owner-photo{margin:0!important;padding:0!important;position:relative;overflow:hidden;isolation:isolate;background:var(--ink)!important;min-height:560px!important}
+.owner-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);z-index:0}
+.owner-photo:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.03) 35%,rgba(0,0,0,.72));pointer-events:none}
+.owner-photo figcaption{position:absolute;left:22px;bottom:22px;z-index:3;color:#fff}
+.owner-photo .number{position:absolute!important;top:16px!important;right:18px!important;z-index:3!important;color:#fff!important;font:700 clamp(86px,12vw,180px)/.78 var(--sans)!important;letter-spacing:-.08em!important;opacity:.9}
+
+/* User video becomes a purposeful transition before the visit section */
+.motion-break{display:grid;grid-template-columns:.72fr 1.28fr;gap:12px;align-items:stretch}
+.motion-copy{background:var(--rust);color:#fff;padding:44px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.motion-copy h2{font:700 clamp(58px,7vw,104px)/.8 var(--sans);letter-spacing:-.065em;margin:18px 0 24px}
+.motion-copy h2 .serif{color:var(--milk)}
+.motion-copy>p:last-child{font-size:15px;line-height:1.65;max-width:430px;margin:0}
+.motion-video{margin:0;position:relative;min-height:650px;background:var(--ink);overflow:hidden}
+.motion-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.motion-video:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.58));pointer-events:none}
+.motion-video figcaption{position:absolute;left:16px;bottom:14px;z-index:2;background:var(--milk);color:var(--ink);padding:7px 9px}
+
 .image-credit-note{font:500 8px/1.45 var(--mono);letter-spacing:.06em;text-transform:uppercase;opacity:.64}
 
-@media(max-width:720px){
+@media(max-width:760px){
   .supplier-photo img{transform:scale(1.01)}
-  .supplier-card:hover .supplier-photo img{transform:scale(1.035)}
-  .sun-stage{min-height:520px}
+  .supplier-card:hover .supplier-photo img{transform:scale(1.01)}
+  .sun-stage{min-height:0!important}
+
+  .venue-notes{grid-template-columns:1fr;margin-top:34px;gap:10px}
+  .venue-shot{min-height:0;aspect-ratio:4/5}
+  .venue-shot-square{aspect-ratio:1/1}
+  .venue-shot-portrait{aspect-ratio:4/5}
+  .venue-note-copy{min-height:220px;padding:24px}
+  .venue-note-copy p{margin-top:22px}
+
+  .owner-photo{min-height:0!important;aspect-ratio:1/1}
+  .owner-photo .number{font-size:clamp(72px,26vw,116px)!important;top:12px!important;right:12px!important}
+  .owner-photo figcaption{left:16px;bottom:16px}
+
+  .motion-break{grid-template-columns:1fr;padding-block:64px!important;gap:10px}
+  .motion-copy{padding:30px 20px;min-height:320px}
+  .motion-copy h2{font-size:clamp(48px,14vw,68px);line-height:.84}
+  .motion-video{min-height:0;aspect-ratio:9/16}
+
+  /* Definitive mobile fix for the badge shown upside-down in the screenshot */
+  .hero-orbit{animation:none!important;transform:none!important;width:72px!important;height:72px!important;right:10px!important;top:10px!important;display:grid!important;place-items:center!important}
+  .hero-orbit span{transform:none!important;white-space:normal!important;text-align:center!important;max-width:58px!important;line-height:1.25!important;font-size:6px!important;letter-spacing:.05em!important}
 }
 
-@media(prefers-reduced-motion:reduce){.supplier-photo img,.daylight-photo{transition:none!important;transform:none!important}}
+@media(max-width:420px){
+  .venue-shot figcaption{left:14px;right:14px;bottom:14px}
+  .motion-copy{min-height:290px}
+  .motion-copy h2{font-size:clamp(44px,13vw,58px)}
+  .hero-orbit{width:66px!important;height:66px!important}
+  .hero-orbit span{max-width:52px!important;font-size:5.5px!important}
+}
+
+@media(hover:none),(pointer:coarse){
+  .venue-shot:hover img,.supplier-card:hover .supplier-photo img{transform:none!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .supplier-photo img,.daylight-photo,.venue-shot img{transition:none!important;transform:none!important}
+  .hero-orbit{animation:none!important}
+}
