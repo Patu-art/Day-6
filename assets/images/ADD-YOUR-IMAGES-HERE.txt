@@ -1,0 +1,37 @@
+DAY 6 — ALWAYS THE SAME
+
+Add owner-approved/local images here using these exact names:
+
+1. always-the-same-hero.jpg
+   Use: main hero image
+   Best photo: storefront, counter, sign, or branded coffee shot
+   Ratio: 4:5 portrait
+   Recommended: 1400–2000 px long edge
+
+2. coffee-detail.jpg
+   Use: Harmony / coffee section
+   Best photo: espresso, latte, grinder, barista hands, branded cup
+   Ratio: 4:5 portrait
+
+3. bakes-detail.jpg
+   Use: La Chouquette / bakes section
+   Best photo: pastry tray, croissant, counter display
+   Ratio: 4:5 portrait
+
+4. daytime-interior.jpg
+   Use: daylight section
+   Best photo: actual Always The Same seating/counter/interior in natural daylight
+   Ratio: 4:5 or 3:4
+
+5. team-or-jake.jpg
+   Optional
+   Use: local know-how / owner section
+   Best photo: natural working portrait
+   Ratio: 4:5 portrait
+
+PRIORITY IF YOU ONLY HAVE 3:
+- always-the-same-hero.jpg
+- coffee-detail.jpg
+- daytime-interior.jpg
+
+Do not add random stock photos. Real venue/brand imagery will improve the site far more.
